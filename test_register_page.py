@@ -1,6 +1,6 @@
 from test_base import BaseTest
-from page_home import HomePage
-from page_register import RegisterPage
+from pages.page_home import HomePage
+from pages.page_register import RegisterPage
 import unittest
 import os
 from time import sleep

@@ -1,4 +1,4 @@
-from page_base import BasePage
+from pages.page_base import BasePage
 from locators import RegisterPageLocators
 import time
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,8 +9,6 @@ from time import sleep
 class RegisterPage(BasePage):
 
     def fill_name(self, name):
-        print("registration part")
-        sleep(2)
         el = self.driver.find_element(*RegisterPageLocators.NAME_INPUT)
         el.send_keys(name)
 
