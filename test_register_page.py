@@ -3,13 +3,28 @@ from pages.page_home import HomePage
 from pages.page_register import RegisterPage
 import unittest
 import os
-from time import sleep
+import csv
+from ddt import ddt, data, unpack
 
+# download data from the file invalid_emails.csv
+def get_data(file_name):
+    rows = []
+    data_file = open(file_name, 'rt')
+    reader = csv.reader(data_file)
+    # skip the first row
+    next(reader, None)
+    for row in reader:
+        rows.append(row)
+    return rows
+
+@ddt
 class RegistrationTest(BaseTest):
     """
     Registration page tests
     """
-    def test_incorrect_email(self, name='Ala', surname='Nowak', invalid_email='ala.com', password='aksu%1A', birthMonth='12', birthDay='12', birthYear='1990', gender='F', pronoun = None):
+    @data(*get_data("invalid_emails.csv"))
+    @unpack
+    def test_incorrect_email(self, name, surname, invalid_email, password, birthMonth, birthDay, birthYear, gender, pronoun):
         """Registration test - invalid e-mail"""
         # Home Page
         hp = HomePage(self.driver)
@@ -33,16 +48,6 @@ class RegistrationTest(BaseTest):
         rp.choose_sing_up_btn()
         # Verify if the displayed errors are correct
         rp.verify_if_reg_error_occurs(1, ["wrong_email"])
-
-#testowe dane
-name = 'Alicja'
-surname = 'Nowak'
-invalid_email = 'alanowak.com'
-password = 'aguy4$G'
-birthMonth = '12'
-birthDay = '12'
-birthYear = '1991'
-gender = 'F'
 
 
 if __name__=="__main__":
