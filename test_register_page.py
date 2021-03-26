@@ -9,7 +9,7 @@ from ddt import ddt, data, unpack
 # download data from the file invalid_emails.csv
 def get_data(file_name):
     rows = []
-    data_file = open(file_name, 'rt')
+    data_file = open(file_name, "rt")
     reader = csv.reader(data_file)
     # skip the first row
     next(reader, None)
@@ -17,14 +17,27 @@ def get_data(file_name):
         rows.append(row)
     return rows
 
+
 @ddt
 class RegistrationTest(BaseTest):
     """
     Registration page tests
     """
+
     @data(*get_data("invalid_emails.csv"))
     @unpack
-    def test_incorrect_email(self, name, surname, invalid_email, password, birthMonth, birthDay, birthYear, gender, pronoun):
+    def test_incorrect_email(
+        self,
+        name,
+        surname,
+        invalid_email,
+        password,
+        birthMonth,
+        birthDay,
+        birthYear,
+        gender,
+        pronoun,
+    ):
         """Registration test - invalid e-mail"""
         # Home Page
         hp = HomePage(self.driver)
@@ -32,7 +45,7 @@ class RegistrationTest(BaseTest):
         hp.click_cookies_btn()
         hp.click_registration_btn()
         hp._verify_page()
-        #Register Page
+        # Register Page
         rp = RegisterPage(self.driver)
         rp.fill_name(name)
         rp.fill_surname(surname)
@@ -50,5 +63,5 @@ class RegistrationTest(BaseTest):
         rp.verify_if_reg_error_occurs(1, ["wrong_email"])
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     unittest.main(verbosity=2)

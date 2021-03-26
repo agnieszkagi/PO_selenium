@@ -1,6 +1,7 @@
 import unittest
 from selenium import webdriver
 
+
 class BaseTest(unittest.TestCase):
     """
     This class contains th elements used by all tests,
@@ -9,7 +10,7 @@ class BaseTest(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.driver.get('https://www.facebook.com/')
+        self.driver.get("https://www.facebook.com/")
         self.driver.maximize_window()
         self.driver.implicitly_wait(10)
 

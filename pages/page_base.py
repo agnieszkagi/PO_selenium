@@ -1,4 +1,4 @@
-class BasePage():
+class BasePage:
     """
     This class contains the elements used by all pages,
     ex._verify_page(), etc.
@@ -11,5 +11,6 @@ class BasePage():
     def _verify_page(self):
         return
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -6,8 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import logging
 
-class RegisterPage(BasePage):
 
+class RegisterPage(BasePage):
     def fill_name(self, name):
         el = self.driver.find_element(*RegisterPageLocators.NAME_INPUT)
         el.send_keys(name)
@@ -23,7 +23,9 @@ class RegisterPage(BasePage):
     def fill_email_confirmation(self, email):
         # check if element EMAIL_CONFIRMATION is is_displayed
         # if yes, fill with the email value
-        if self.driver.find_element(*RegisterPageLocators.EMAIL_CONFIRMATION).is_displayed():
+        if self.driver.find_element(
+            *RegisterPageLocators.EMAIL_CONFIRMATION
+        ).is_displayed():
             el = driver.find_element(*RegisterPageLocators.EMAIL_CONFIRMATION)
             el.send_keys(email)
 
@@ -58,21 +60,20 @@ class RegisterPage(BasePage):
             el.click()
 
     def choose_pronoun(self, gender, pronoun):
-        if gender not in ('F, ''M'):
+        if gender not in ("F, " "M"):
             if pronoun == "she":
-                value = '1'
+                value = "1"
             elif pronoun == "he":
-                value = '2'
+                value = "2"
             else:
-                value = '3'
-            if gender not in("M", "F"):
+                value = "3"
+            if gender not in ("M", "F"):
                 el = Select(self.driver.find_element(*RegisterPageLocators.PRONOUN))
                 el.select_by_value(value)
 
     def choose_sing_up_btn(self):
         el = self.driver.find_element(*RegisterPageLocators.SING_UP_BTN)
         el.click()
-
 
     def verify_if_reg_error_occurs(self, number_of_errors, type_of_errors):
         """
@@ -81,63 +82,75 @@ class RegisterPage(BasePage):
         increases.
         """
         visible_error_notices = []
-        #NAME
+        # NAME
         self.driver.find_element(*RegisterPageLocators.NAME_INPUT).click()
         if len(self.driver.find_elements(*RegisterPageLocators.MISSING_NAME)) <= 0:
             logging.info("name error text not displayed (not in page code)")
         else:
-            if self.driver.find_element(*RegisterPageLocators.MISSING_NAME).is_displayed():
+            if self.driver.find_element(
+                *RegisterPageLocators.MISSING_NAME
+            ).is_displayed():
                 visible_error_notices.append("missing_name")
                 logging.warning("name error text is displayed")
             else:
                 logging.info("name error text not displayed")
 
-        #SURNAME
+        # SURNAME
         self.driver.find_element(*RegisterPageLocators.SURNAME_INPUT).click()
         if len(self.driver.find_elements(*RegisterPageLocators.MISSING_SURNAME)) <= 0:
             logging.info("surname error text not displayed (not in page code)")
         else:
-            if self.driver.find_element(*RegisterPageLocators.MISSING_SURNAME).is_displayed():
+            if self.driver.find_element(
+                *RegisterPageLocators.MISSING_SURNAME
+            ).is_displayed():
                 logging.warning("surname error text is displayed")
                 visible_error_notices.append("missing_surname")
             else:
                 logging.info("surname error text not displayed")
 
-        #EMAIL
+        # EMAIL
         self.driver.find_element(*RegisterPageLocators.EMAIL_INPUT).click()
         if len(self.driver.find_elements(*RegisterPageLocators.WRONG_EMAIL)) <= 0:
             logging.info("email error text not displayed (not in page code)")
         else:
-            if self.driver.find_element(*RegisterPageLocators.WRONG_EMAIL).is_displayed():
+            if self.driver.find_element(
+                *RegisterPageLocators.WRONG_EMAIL
+            ).is_displayed():
                 logging.warning("email error text is displayed")
                 visible_error_notices.append("wrong_email")
             else:
                 logging.info("email error text not displayed")
-        #PASSWORD
+        # PASSWORD
         self.driver.find_element(*RegisterPageLocators.PASSWORD_INPUT).click()
         if len(self.driver.find_elements(*RegisterPageLocators.WRONG_PASSWORD)) <= 0:
             logging.info("password error text not displayed (not in page code)")
         else:
-            if self.driver.find_element(*RegisterPageLocators.WRONG_PASSWORD).is_displayed():
+            if self.driver.find_element(
+                *RegisterPageLocators.WRONG_PASSWORD
+            ).is_displayed():
                 logging.warning("password error text is displayed")
                 visible_error_notices.append("wrong_password")
             else:
                 logging.info("password error text not displayed")
-        #BIRTHDAY
+        # BIRTHDAY
         self.driver.find_element(*RegisterPageLocators.BIRTH_MONTH).click()
         if len(self.driver.find_elements(*RegisterPageLocators.WRONG_BIRTHDAY)) <= 0:
             logging.info("birthday error text not displayed (not in page code)")
         else:
-            if self.driver.find_element(*RegisterPageLocators.WRONG_BIRTHDAY).is_displayed():
+            if self.driver.find_element(
+                *RegisterPageLocators.WRONG_BIRTHDAY
+            ).is_displayed():
                 logging.warning("birthday error text is displayed")
                 visible_error_notices.append("wrong_bithday")
             else:
                 logging.info("birthday error text not displayed")
-        #Gender
+        # Gender
         if len(self.driver.find_elements(*RegisterPageLocators.MISSING_GENDER)) <= 0:
             logging.info("gender error text not displayed (not in page code)")
         else:
-            if self.driver.find_element(*RegisterPageLocators.MISSING_GENDER).is_displayed():
+            if self.driver.find_element(
+                *RegisterPageLocators.MISSING_GENDER
+            ).is_displayed():
                 logging.warning("gender error text is displayed")
                 visible_error_notices.append("missing_gender")
             else:
